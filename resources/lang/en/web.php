@@ -7,6 +7,7 @@ return [
     'contact' => 'Contact Us',
     'signin' => 'Sign In',
     'signup' => 'Sign Up',
+    'signout' => 'Sign Out',
 
     'heroTitle' => 'SkillsHub Free Online Skill Assessment',
     'heroDesc' => 'Join us and test your skills now !',
@@ -26,6 +27,18 @@ return [
     'duration' => 'Duration',
     'mins' => 'mins',
     'difficulty' => 'Difficulty',
+
+    'name' => 'Name',
+    'email' => 'Email',
+    'subject' => 'Subject',
+    'msg' => 'Enter your Message',
+    'sendMsg' => 'Send Message',
+    'contactInfo' => 'Contact Information',
+    'password' => 'Password',
+    'confirmPass' => 'Confirm Password',
+    'rememberMe' => 'Remember Me',
+    'signupDesc' => 'Sign Up and estimate your skills',
+    'signinDesc' => 'Sign In to start exam'
 
 
 ];

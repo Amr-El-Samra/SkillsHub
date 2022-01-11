@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\web\CatController;
 use App\Http\Controllers\web\ExamController;
 use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\LangController;
 use App\Http\Controllers\web\SkillController;
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +25,15 @@ Route::middleware('lang')->group(function(){
     Route::get('/categories/show/{id}', [CatController::class, 'show']);
     Route::get('/skills/show/{id}', [SkillController::class, 'show']);
     Route::get('/exams/show/{id}', [ExamController::class, 'show']);
-    Route::get('/exams/questions/{id}', [ExamController::class, 'questions']);
+    Route::get('/exams/questions/{id}', [ExamController::class, 'questions'])->middleware(['auth', 'verified', 'student']);
+    Route::get('/contact', [ContactController::class, 'index']);
 });
+
+Route::post('/exams/start/{id}', [ExamController::class, 'start'])->middleware(['auth', 'verified', 'student']);
+Route::post('/exams/submit/{id}', [ExamController::class, 'submit'])->middleware(['auth', 'verified', 'student']);
+
 Route::get('/lang/set/{lang}', [LangController::class, 'set']);
+Route::post('/contact/message/send', [ContactController::class, 'send']);
 
 
 

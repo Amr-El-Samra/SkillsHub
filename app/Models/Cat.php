@@ -16,8 +16,8 @@ class Cat extends Model
         return $this->hasMany(Skill::class);
     }
 
-    public function name(){
-        $lang = App::getLocale();
+    public function name($lang = null){
+        $lang = $lang ?? App::getLocale();
         return json_decode($this->name)->$lang;
     }
 }

@@ -1,7 +1,7 @@
 @extends('web.layout')
 
 @section('title')
-    Show Skill: 
+    Skill: {{$skill->name()}} 
 @endsection
 
 @section('main')
@@ -18,10 +18,10 @@
 					<div class="col-md-10 col-md-offset-1 text-center">
 						<ul class="hero-area-tree">
 							<li><a href="index.html">Home</a></li>
-							<li><a href="category.html">Category name</a></li>
-							<li>Skill name</li>
+							<li><a href="category.html">{{$skill->cat->name()}}</a></li>
+							<li>{{$skill->name()}}</li>
 						</ul>
-						<h1 class="white-text">Skill name</h1>
+						<h1 class="white-text">{{$skill->name()}}</h1>
 
 					</div>
 				</div>
@@ -44,180 +44,38 @@
 
 						<!-- row -->
 						<div class="row">
-
+							@foreach ($exams as $exam)
+								
 							<!-- single exam -->
 							<div class="col-md-3">
 								<div class="single-blog">
 									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam1.jpg')}} alt="">
+										<a href="{{url("exams/show/{$exam->id}")}}">
+											<img src={{asset("uploads/$exam->img")}} alt="">
 										</a>
 									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
+									<h4><a href="{{url("exams/show/{$exam->id}")}}">{{$exam->name()}}</a></h4>
 									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
+                                        <span>{{Carbon\Carbon::parse($exam->created_at)->format('d M, Y')}}</span>
 										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /single exam -->
-
-							<!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam2.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
+											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> {{$exam->users()->count()}}</a></span>
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- /single exam -->
 
-							<!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam3.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /single exam -->
+							@endforeach
 
-							<!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam4.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <!-- /single exam -->
-                            
-                            <!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam5.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-                            <!-- /single exam -->
-                            
-                            <!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam6.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /single exam -->
-                            
-                            <!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam7.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /single exam -->
-                            
-                            <!-- single exam -->
-							<div class="col-md-3">
-								<div class="single-blog">
-									<div class="blog-img">
-										<a href="exam.html">
-											<img src={{asset('uploads/exams/exam8.jpg')}} alt="">
-										</a>
-									</div>
-									<h4><a href="exam.html">Pro eu error molestie deserunt. At per viderer bonorum persecuti.</a></h4>
-									<div class="blog-meta">
-                                        <span>18 Oct, 2017</span>
-										<div class="pull-right">
-											<span class="blog-meta-comments"><a href="#"><i class="fa fa-users"></i> 35</a></span>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /single exam -->
+
+
 
 						</div>
 						<!-- /row -->
 
 						<!-- row -->
 						<div class="row">
-
-							<!-- pagination -->
-							<div class="col-md-12">
-								<div class="post-pagination">
-									<a href="#" class="pagination-back pull-left">{{__('web.back')}}</a>
-									<ul class="pages">
-										<li class="active">1</li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-									</ul>
-									<a href="#" class="pagination-next pull-right">{{__('web.next')}}</a>
-								</div>
-							</div>
-							<!-- pagination -->
-
+							{{$exams->links('web.inc.paginator')}}
 						</div>
 						<!-- /row -->
 					</div>
@@ -233,3 +91,22 @@
 		<!-- /Blog -->
     
 @endsection
+
+
+
+
+
+							<!-- pagination -->
+							{{-- <div class="col-md-12">
+								<div class="post-pagination">
+									<a href="#" class="pagination-back pull-left">{{__('web.back')}}</a>
+									<ul class="pages">
+										<li class="active">1</li>
+										<li><a href="#">2</a></li>
+										<li><a href="#">3</a></li>
+										<li><a href="#">4</a></li>
+									</ul>
+									<a href="#" class="pagination-next pull-right">{{__('web.next')}}</a>
+								</div>
+							</div> --}}
+							<!-- pagination -->

@@ -13,10 +13,11 @@ class CatFactory extends Factory
      */
     public function definition()
     {
+        $arabicFaker = \Faker\Factory::create('ar_JO');
         return [
             'name'=>json_encode([
                 'en'=> $this->faker->word(),
-                'ar'=> $this->faker->word(),
+                'ar'=> $arabicFaker->word(),
             ]),
         ];
     }
