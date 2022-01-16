@@ -33,4 +33,8 @@ class Skill extends Model
         }
         return $studentsNum;
     }
+
+    public function scopeActive($query){
+        return $query->where('active', 1);
+    }
 }

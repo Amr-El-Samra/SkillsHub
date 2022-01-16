@@ -45,7 +45,7 @@
 
             <!-- main blog -->
             <div id="main" class="col-md-9">
-
+                @include('web.inc.messages')
                 <!-- blog post -->
                 <div class="blog-post mb-5">
                     <p>{{$exam->desc()}}</p>       
@@ -53,10 +53,15 @@
                 <!-- /blog post -->
                 
                 <div>
-                    <form action="{{url("exams/start/{$exam->id}")}}" method="post">
-                        @csrf
-                        <button type="submit" class="main-button icon-button pull-left" >{{__('web.startExamBtn')}}</button>
-                    </form>
+                    @if ($canViewStartExamBtn)
+
+                        <form action="{{url("exams/start/{$exam->id}")}}" method="post">
+                            @csrf
+                            <button type="submit" class="main-button icon-button pull-left" >{{__('web.startExamBtn')}}</button>
+                        </form>
+                            
+                    @endif
+                    
                 </div>
             </div>
             <!-- /main blog -->

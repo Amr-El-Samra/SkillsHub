@@ -10,8 +10,8 @@ class CatController extends Controller
 {
     public function show($id){
         $data['cat'] = Cat::findOrFail($id);
-        $data['allCats'] = Cat::select('id', 'name')->get();
-        $data['skills'] = $data['cat']->skills()->paginate(6);
+        $data['allCats'] = Cat::select('id', 'name')->active()->get();
+        $data['skills'] = $data['cat']->skills()->active()->paginate(6);
         return view('web.cats.show')->with($data);
     }
 }

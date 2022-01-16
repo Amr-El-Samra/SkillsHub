@@ -4,6 +4,10 @@
     Show Questions:
 @endsection
 
+@section('styles')
+    <link href="{{asset('web/css/TimeCircles.css')}}" rel="stylesheet">
+@endsection
+
 @section('main')
 
     <!-- Hero-area -->
@@ -45,6 +49,9 @@
 
             <!-- main blog -->
             <div id="main" class="col-md-9">
+                <form id="submitForm" method="POST" action="{{url("exams/submit/{$exam->id}")}}">
+                    @csrf
+                </form>
 
                 <!-- blog post -->
                 <div class="blog-post mb-5">
@@ -57,25 +64,25 @@
                             <div class="panel-body">
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1">
+                                        <input type="radio" name="answers[{{$question->id}}]" value="1" form="submitForm">
                                         {{$question->option_1}}
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                        <input type="radio" name="answers[{{$question->id}}]" value="2" form="submitForm">
                                         {{$question->option_2}}
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                        <input type="radio" name="answers[{{$question->id}}]" value="3" form="submitForm">
                                         {{$question->option_3}}
                                     </label>
                                 </div>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="optionsRadios" id="optionsRadios3" value="option3">
+                                        <input type="radio" name="answers[{{$question->id}}]" value="4" form="submitForm">
                                         {{$question->option_4}}
                                     </label>
                                 </div>
@@ -83,12 +90,12 @@
                         </div>    
                             
                         @endforeach
-                    </p>       
+                    </ p>       
                 </div>
                 <!-- /blog post -->
                 
                 <div>
-                    <button class="main-button icon-button pull-left">Submit</button>
+                    <button form="submitForm" type="submit" class="main-button icon-button pull-left">Submit</button>
                     <button class="main-button icon-button btn-danger pull-left ml-sm">Cancel</button>
                 </div>
             </div>
@@ -115,10 +122,12 @@
                 </ul>
                 <!-- /exam details widget -->
 
+                <div class="timeDuration" data-timer="{{$exam->duration_mins * 60}}"></div>
                 
 
             </div>
             <!-- /aside blog -->
+
 
         </div>
         <!-- row -->
@@ -129,4 +138,20 @@
     </div>
     <!-- /Blog -->
     
+@endsection
+
+@section('scripts')
+    <script type="text/javascript" src="{{asset('web/js/TimeCircles.js')}}"></script>
+    <script>
+        $(".timeDuration").TimeCircles({
+            time: {
+                Days: { show: false },
+            },
+            count_past_zero: false,
+        }).addListener(function(unit, value, total){
+            if (total <= 0) {
+                $('#submitForm').submit();
+            }
+        }); 
+    </script>  
 @endsection

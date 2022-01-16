@@ -20,4 +20,8 @@ class Cat extends Model
         $lang = $lang ?? App::getLocale();
         return json_decode($this->name)->$lang;
     }
+
+    public function scopeActive($query){
+        return $query->where('active', 1);
+    }
 }

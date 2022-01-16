@@ -20,6 +20,12 @@
         @endguest
 
         @auth
+            @if (Auth::user()->role->name == 'student')
+                <li><a href="{{url('profile')}}">Profile</a></li>
+            @else
+            <li><a href="{{url('dashboard')}}">Dashboard</a></li>
+            @endif
+
             <li><a id="logout-link" href="#">{{__('web.signout')}}</a></li>
         @endauth
 
