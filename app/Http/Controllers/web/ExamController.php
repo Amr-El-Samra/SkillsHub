@@ -30,7 +30,14 @@ class ExamController extends Controller
 
     public function start($examId, Request $request){
         $user = Auth::user();
-        $user->exams()->attach($examId);
+
+        if (! $user->exams->contain($examId)) {
+            $user->exams()->attach($examId);
+        } else{
+            $user->exams()->updateExistingPivot($examId, [
+                'status' => 'closed'
+            ]);
+        }
         $request->session()->flash('prevPage', "start/$examId");
         return redirect(url("/exams/questions/$examId"));
     }

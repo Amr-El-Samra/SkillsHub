@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\CatController as AdminCatController;
 use App\Http\Controllers\admin\ExamController as AdminExamController;
 use App\Http\Controllers\admin\HomeController as AdminHomeController;
+use App\Http\Controllers\admin\MessageController;
 use App\Http\Controllers\admin\SkillController as AdminSkillController;
+use App\Http\Controllers\admin\StudentController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\web\CatController;
 use App\Http\Controllers\web\ExamController;
@@ -11,7 +14,9 @@ use App\Http\Controllers\web\HomeController;
 use App\Http\Controllers\web\LangController;
 use App\Http\Controllers\web\ProfileController;
 use App\Http\Controllers\web\SkillController;
+use App\Mail\ContactResponseMail;
 use Illuminate\Routing\Route as RoutingRoute;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -78,11 +83,26 @@ Route::prefix('dashboard')->middleware(['auth', 'verified', 'canEnterDashboard']
     Route::get('/exams/delete/{exam}', [AdminExamController::class, 'delete']);
     Route::get('/exams/toggle/{exam}', [AdminExamController::class, 'toggle']);
 
+    Route::get('/students', [StudentController::class, 'index']);
+    Route::get('/students/show-scores/{id}', [StudentController::class, 'showScores']);
+    Route::get('/students/open-exams/{studentId}/{examId}', [StudentController::class, 'openExams']);
+    Route::get('/students/close-exams/{studentId}/{examId}', [StudentController::class, 'closeExams']);
 
+    Route::middleware('superadmin')->group(function() {
+        Route::get('/admins', [AdminController::class, 'index']);
+        Route::get('/admins/create', [AdminController::class, 'create']);
+        Route::post('/admins/store', [AdminController::class, 'store']);
+        Route::get('/admins/promote/{id}', [AdminController::class, 'promote']);
+        Route::get('/admins/demote/{id}', [AdminController::class, 'demote']);
+        Route::get('/admins/delete/{id}', [AdminController::class, 'delete']);
+    });
+
+    Route::get('/messages', [MessageController::class, 'index']);
+    Route::get('/messages/show/{message}', [MessageController::class, 'show']);
+    Route::post('/messages/response/{message}', [MessageController::class, 'response']);
 
 
 });
-
 
 
 

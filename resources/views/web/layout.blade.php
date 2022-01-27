@@ -19,6 +19,7 @@
 
 		<!-- Custom stlylesheet -->
 		<link type="text/css" rel="stylesheet" href="{{asset('web/css/style.css')}}"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
         @yield('styles')
 
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -104,13 +105,30 @@
 		<script type="text/javascript" src="{{asset('web/js/jquery.min.js')}}"></script>
 		<script type="text/javascript" src="{{asset('web/js/bootstrap.min.js')}}"></script>
 		<script type="text/javascript" src="{{asset('web/js/main.js')}}"></script>
-        @yield('scripts')
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 		<script>
 			$('#logout-link').click(function(e){
 				e.preventDefault()
 				$('#logout-form').submit()
 			})
+		</script>
+        @yield('scripts')
+
+		<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+		<script>
+
+		// Enable pusher logging - don't include this in production
+		Pusher.logToConsole = true;
+
+		var pusher = new Pusher('333cd6241c19a68d180f', {
+			cluster: 'eu'
+		});
+
+		var channel = pusher.subscribe('notifications-channel');
+		channel.bind('exam-added', function(data) {
+			toastr.success('New Exam Added')
+		});
 		</script>
 
 	</body>
